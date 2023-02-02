@@ -1,4 +1,3 @@
-
 // homeroutes contains all the view routes that do not require any authentication
 const router = require("express").Router();
 const { Post, Comment, User } = require("../models/");
@@ -6,6 +5,10 @@ const { Post, Comment, User } = require("../models/");
 // TODO - work on GET route for getting all posts
 // this page can be viewed without logging in
 router.get("/", async (req, res) => {
+  let username;
+  if (req.session.loggedIn) {
+    username = req.session.username;
+  }
   // TODO - retrieve all posts from the database
   // render the homepage template with the posts retrieved from the database
   // refer to homepage.handlebars write the code to display the posts
@@ -14,8 +17,6 @@ router.get("/", async (req, res) => {
 
 // TODO - create a GET route for getting a single post with its id
 // this page can be viewed without logging in
-
-
 
 // This route renders the login page, which has been completed for you
 router.get("/login", (req, res) => {
@@ -27,8 +28,6 @@ router.get("/login", (req, res) => {
   //render the login view otherwise, refer to login.handlebars
   res.render("login");
 });
-
-
 
 // This route renders the signup page, which has been completed for you
 router.get("/signup", (req, res) => {
@@ -42,4 +41,3 @@ router.get("/signup", (req, res) => {
 });
 
 module.exports = router;
-
