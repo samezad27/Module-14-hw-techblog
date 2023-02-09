@@ -25,13 +25,16 @@ router.post("/", async (req, res) => {
 // POST /api/users/login is a login route for an existing user
 router.post("/login", async (req, res) => {
   try {
+    console.log(req.body);
     const user = await User.findOne({
       where: {
         username: req.body.username,
       },
     });
+    console.log(user);
 
     if (!user) {
+      console.log("no user found");
       res.status(400).json({ message: "No user account found!" });
       return;
     }
@@ -39,7 +42,8 @@ router.post("/login", async (req, res) => {
     const validPassword = user.checkPassword(req.body.password);
 
     if (!validPassword) {
-      res.status(400).json({ message: "No user account found!" });
+      console.log("password invalid");
+      res.status(400).json({ message: "password invalid" });
       return;
     }
 
