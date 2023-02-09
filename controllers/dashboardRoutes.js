@@ -1,4 +1,3 @@
-
 // Dashboard Routes
 // This is a set of routes that will be used to render the dashboard pages.
 // All of these routes will be protected by the withAuth middleware function.
@@ -24,4 +23,3 @@ router.get("/", withAuth, async (req, res) => {
 // It should display a form for editing an existing post
 
 module.exports = router;
-
