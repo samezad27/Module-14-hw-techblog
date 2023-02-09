@@ -18,6 +18,18 @@ router.post("/", withAuth, async (req, res) => {
   }
 });
 
+router.get("/", withAuth, async (req, res) => {
+  try {
+    const getPosts = await Post.findAll({
+      where: {
+        userId: req.session.userId,
+      },
+    });
+    res.json(getPosts);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 // TODO - create a PUT route for updating a post's title or body
 // This should be a protected route, so you'll need to use the withAuth middleware
 
