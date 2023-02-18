@@ -2,7 +2,33 @@
 {{!-- TODO - write the template to show all the user's posts on the /dashboard route --}}
 
 
-<button>Create Post</button> 
-
 <h1>My Posts</h1>
+
+<form id="create-post" class="card-body">
+  <div>
+    <label for="post-id">Title</label>
+    <input type="text" id="post-id" />
+  </div>
+  <div>
+    <label for="post-body" class="form-label">Body</label>
+    <input type="text" id="post-body" />
+  </div>
+  <button id= "post-button" type="submit">Post!</button>
+</form>
+
+
+<ul id="post-id">
+  {{#each posts}}
+    <div>{{title}}</div>
+    <textarea id="body-{{id}}">{{body}}</textarea>
+    <button class = "update-btn" id="{{id}}">Update</button>
+    <button class = "delete-btn" id="{{id}}">Delete</button>
+
+  {{/each}}
+</ul>
+
+
+<script src="/js/post.js"></script>
+
+
 

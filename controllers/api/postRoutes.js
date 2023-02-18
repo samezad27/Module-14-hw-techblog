@@ -34,6 +34,7 @@ router.get("/", withAuth, async (req, res) => {
 // This should be a protected route, so you'll need to use the withAuth middleware
 
 router.put("/:id", withAuth, async (req, res) => {
+  console.log("BODY", req.body);
   try {
     const updateBody = await Post.update(
       { ...req.body },
@@ -43,10 +44,12 @@ router.put("/:id", withAuth, async (req, res) => {
         },
       }
     );
+
+    console.log(updateBody);
     if (!updateBody) {
       res.status(404).json({ message: "incorrect" + req.params.id });
     }
-    res.status(200).json(updatedBody);
+    res.status(200).json(updateBody);
   } catch (err) {
     console.log("update error: " + err.message);
     res.status(500).json(err);
@@ -55,21 +58,22 @@ router.put("/:id", withAuth, async (req, res) => {
 
 // TODO - create a DELETE route for deleting a post with a specific id
 // This should be a protected route, so you'll need to use the withAuth middleware
-router.post("/delete/:id", withAuth, async (req, res) => {
+router.delete("/:id", withAuth, async (req, res) => {
+  console.log(req.params.id);
   try {
     const deletePost = await Post.destroy({
       where: {
         id: req.params.id,
       },
     });
-
-    if (!deletePost) {
+    console.log(deletePost);
+    /*if (!deletePost) {
       res
         .status(404)
         .json({ message: "There is no post with this id. Please try again!" });
       return;
-    }
-    res.redirect("/dashboard");
+    }*/
+    res.status(200).json("ok");
   } catch (err) {
     res.status(500).json(err);
   }
